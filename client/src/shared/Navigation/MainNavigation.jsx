@@ -36,6 +36,7 @@ const MainNavigation = (props) => {
           <span />
           <span />
         </button>
+
         <h1 className="main-navigation__title">
           <Link>Jobs Tracker</Link>
         </h1>

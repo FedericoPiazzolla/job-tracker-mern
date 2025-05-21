@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--background-color);
+  background-color: var(--background-btn-color);
 }
 
 .nav-links li {
@@ -18,7 +18,7 @@
 
 .nav-links a {
   border: 1px solid transparent;
-  color: var(--background-btn-color);
+  color: var(--background-color);
   text-decoration: none;
   padding: 0.5rem;
 }
@@ -26,14 +26,15 @@
 .nav-links a:hover,
 .nav-links a:active,
 .nav-links a.active {
-  background: var(--text-color);
-  border-color: var(--background-btn-color);
+  border-radius: 5px;
+  background: var(--background-color);
   color: var(--background-btn-color);
 }
 
 @media (min-width: 768px) {
   .nav-links {
     flex-direction: row;
+    background-color: transparent;
   }
 
   .nav-links li {
@@ -41,7 +42,7 @@
   }
 
   .nav-links a {
-    color: white;
+    color: var(--background-color);
     text-decoration: none;
   }
 
