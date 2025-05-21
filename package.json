@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-router-dom": "^7.6.0"
+    "react-router-dom": "^7.6.0",
+    "react-transition-group": "^4.4.5"
   }
 }
