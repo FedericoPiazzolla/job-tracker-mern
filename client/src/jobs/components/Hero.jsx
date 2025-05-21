@@ -9,8 +9,15 @@ const Hero = () => {
         <div className="hero-wrap">
           <div className="hero-content">
             <h1>Track Your Job Applications</h1>
-            <p>Stay organized and never miss an opportunity!</p>
-            <a href="/auth" className="btn-hero">
+            <p>
+              Stay organized and never miss an opportunity.
+              <span className="hero-description">
+                — with our job application tracker, you can easily monitor every
+                application, follow up with ease, and keep your job search under
+                control from start to finish.
+              </span>
+            </p>
+            <a href="" className="btn-hero">
               Get Started
             </a>
           </div>
