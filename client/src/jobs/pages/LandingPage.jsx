@@ -2,6 +2,7 @@ import React from "react";
 import Hero from "../components/Hero";
 import HeroTagLine from "../components/HeroTagLine";
 import Info from "../components/Info";
+import HowToUse from "../components/HowToUse";
 
 const LandingPage = () => {
   return (
@@ -10,6 +11,7 @@ const LandingPage = () => {
         <Hero />
         <HeroTagLine />
         <Info />
+        <HowToUse />
       </div>
     </>
   );
