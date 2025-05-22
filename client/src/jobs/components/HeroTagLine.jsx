@@ -3,10 +3,10 @@ import "./style/HeroTagLine.css";
 
 const HeroTagLine = () => {
   return (
-    <div className="_container">
+    <div className="container">
       <p className="hero-tagline">
-        Job Tracker simplifies your job hunt
-        <span className="">track, manage, and win every opportunity.</span>
+        " Jobs Tracker simplifies your job hunt:
+        <span> track, manage, and win every opportunity. "</span>
       </p>
     </div>
   );
