@@ -15,7 +15,7 @@ const HowToUse = () => {
             Go to <strong>My Jobs</strong> from the navigation menu.
           </li>
           <li>
-            Click the <strong>+</strong> button if you haven't added any jobs
+            Click the <strong> + </strong> button if you haven't added any jobs
             yet.
           </li>
           <li>

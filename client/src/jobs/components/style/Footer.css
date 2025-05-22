@@ -1,0 +1,32 @@
+.footer {
+  background: var(--primary-color);
+  color: var(--background-color);
+  padding: 2rem 0 1rem 0;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: var(--background-color);
+  transition: color 0.3s, transform 0.3s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-links a:hover {
+  color: var(--accent-color, #ff9800);
+  transform: scale(1.15) rotate(-8deg);
+}
+
+.footer-copy {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}

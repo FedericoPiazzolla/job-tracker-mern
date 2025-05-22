@@ -16,7 +16,7 @@
 
 body {
   margin: 0;
-  background: var(--background-color);
+  background: var(--primary-color);
   font-family: 'Open Sans', sans-serif;
 }
 main {
