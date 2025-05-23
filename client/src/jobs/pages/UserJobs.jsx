@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./style/UserJobs.css";
+
 const DUMMY_JOBS = [
   {
     id: "j1",
@@ -11,6 +13,7 @@ const DUMMY_JOBS = [
     status: "applied",
     date: "2023-10-01",
     salary: "$100,000 - $120,000",
+    creator: "u1",
   },
   {
     id: "j2",
@@ -22,11 +25,12 @@ const DUMMY_JOBS = [
     status: "interviewing",
     date: "2023-10-02",
     salary: "$120,000 - $140,000",
+    creator: "u1",
   },
 ];
 
 const UserJobs = () => {
-  return <div>UserJobs</div>;
+  return <div className="user-jobs">UserJobs</div>;
 };
 
 export default UserJobs;
