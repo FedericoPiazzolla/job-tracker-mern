@@ -62,7 +62,6 @@ const UsersJobs = () => {
   return (
     <div className="user-jobs">
       <div className="user-jobs__header">
-        <h2 className="user-jobs__title">My Applications</h2>
         <NavLink to="/jobs/u1/new" className="user-jobs__add-button">
           Add Application{" "}
           <span>

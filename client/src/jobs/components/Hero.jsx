@@ -12,7 +12,7 @@ const Hero = () => {
             <p>
               Stay organized and never miss an opportunity.
               <span className="hero-description">
-                — with our job application tracker, you can easily monitor every
+                with our job application tracker, you can easily monitor every
                 application, follow up with ease, and keep your job search under
                 control from start to finish.
               </span>
