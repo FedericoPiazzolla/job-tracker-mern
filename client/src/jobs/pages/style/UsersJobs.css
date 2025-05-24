@@ -2,6 +2,11 @@
   background-color: var(--background-color);
   margin-top: 5rem;
   height: calc(100vh - 5rem);
+  width: 100%;
+  max-width: 100vw;
+  margin: 0 auto;
+  padding: 1rem 0.5rem;
+  box-sizing: border-box;
 }
 
 .user-jobs__header {
@@ -13,13 +18,37 @@
   color: var(--primary-color);
 }
 
+.user-jobs__header h2 {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+/* Solo la list-title */
+.user-jobs__list-title {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 0.5rem 0.5rem  0 0 ;
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 0;
+}
+.user-jobs__list-title + .user-jobs__item {
+  border-radius: 0 0 .5rem .5rem;
+}
+
 .user-jobs__add-button {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
   color: white;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -45,31 +74,45 @@
   color: var(--primary-color);
 }
 
+/* Lista candidature */
 .user-jobs__list {
   list-style: none;
-  padding: 1rem;
+  padding: 1rem 0;
   margin: 0;
   max-height: 21rem;
   overflow-y: scroll;
   position: relative;
-  scrollbar-width: auto; 
-  scrollbar-color: var(--primary-color);
+  scrollbar-width: auto;
+  scrollbar-color: var(--primary-color) #e0e0e0;
 }
 
-/* Chrome, Edge, Safari */
+/* Scrollbar Chrome, Edge, Safari */
 .user-jobs__list::-webkit-scrollbar {
-  width: .4rem;
+  width: 0.8rem;
   background: #e0e0e0;
 }
 .user-jobs__list::-webkit-scrollbar-thumb {
   background: var(--primary-color);
   border-radius: 1rem;
+  border: 2px solid #e0e0e0;
 }
 .user-jobs__list::-webkit-scrollbar-track {
-  background: var(--background-color);
+  background: #e0e0e0;
 }
 
-@media (min-width: 768px) {
+/* Messaggio nessuna candidatura */
+.user-jobs__empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--primary-color);
+  background: #f8f8f8;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  margin: 2rem 0;
+}
+
+/* Desktop/tablet: header in riga */
+@media (min-width: 600px) {
   .user-jobs__header {
     flex-direction: row;
     align-items: center;
@@ -81,5 +124,17 @@
     width: auto;
     max-width: none;
     margin: 0;
+  }
+  .user-jobs__list-title {
+    font-size: 1.5rem;
+    text-align: left;
+    margin: 0;
+  }
+  .user-jobs__list-title + .user-jobs__item {
+    border-radius: 0 0 0.5rem 0.5rem;
+    margin-top: 0;
+  }
+  .user-jobs__list {
+    padding: 1rem;
   }
 }

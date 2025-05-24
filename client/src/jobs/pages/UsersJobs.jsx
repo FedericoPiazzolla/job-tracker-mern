@@ -59,26 +59,39 @@ const DUMMY_JOBS = [
 ];
 
 const UsersJobs = () => {
+  const hasApplications = DUMMY_JOBS.length > 0;
+
   return (
     <div className="user-jobs">
       <div className="user-jobs__header">
         <NavLink to="/jobs/u1/new" className="user-jobs__add-button">
-          Add Application{" "}
+          Add Application
           <span>
             <FaPlus />
           </span>
         </NavLink>
       </div>
       <ul className="user-jobs__list">
-        {DUMMY_JOBS.map((job) => (
-          <JobCard
-            id={job.id}
-            title={job.title}
-            location={job.location}
-            status={job.status}
-            date={job.date}
-          />
-        ))}
+        {hasApplications ? (
+          <>
+            <li className="user-jobs__list-title">Current Applications</li>
+            {DUMMY_JOBS.map((job) => (
+              <JobCard
+                key={job.id}
+                id={job.id}
+                title={job.title}
+                location={job.location}
+                status={job.status}
+                date={job.date}
+              />
+            ))}
+          </>
+        ) : (
+          <li className="user-jobs__empty">
+            No applications found. Click <b>Add Application</b> to create your
+            first one!
+          </li>
+        )}
       </ul>
     </div>
   );
