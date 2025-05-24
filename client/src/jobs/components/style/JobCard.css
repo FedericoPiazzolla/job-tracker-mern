@@ -1,0 +1,67 @@
+.user-jobs__item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: light;
+  border: 2px solid var(--primary-color);
+  margin-bottom: 1rem;
+  gap: 0.7rem;
+  color: var(--primary-color);
+}
+
+.user-jobs__item > * {
+  flex: none;
+  min-width: 0;
+  max-width: 100%;
+  text-align: center;
+}
+
+.user-jobs__item-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7.5rem;
+  max-width: 7.5rem;
+  height: 2rem;
+  border-radius: 2rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+  text-align: center;
+  white-space: nowrap;
+  margin: 0 auto;
+}
+
+/* Status color variants */
+.user-jobs__item-status.status-applied {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+.user-jobs__item-status.status-interviewing {
+  background: #fffde7;
+  color: #fbc02d;
+}
+.user-jobs__item-status.status-offer {
+  background: #c8e6c9;
+  color: #388e3c;
+}
+.user-jobs__item-status.status-rejected {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+@media (min-width: 768px) {
+  .user-jobs__item {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  .user-jobs__item > * {
+    flex: 1 1 0;
+    max-width: 20%;
+  }
+}

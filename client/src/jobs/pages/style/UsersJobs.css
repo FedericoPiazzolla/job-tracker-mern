@@ -3,3 +3,71 @@
   margin-top: 5rem;
   height: calc(100vh - 5rem);
 }
+
+.user-jobs__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 1rem;
+  color: var(--primary-color);
+}
+
+.user-jobs__header h2 {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.user-jobs__add-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  font-size: 1rem;
+  border: 1px solid transparent;
+}
+.user-jobs__add-button span {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  font-size: 1.2em;
+}
+
+.user-jobs__add-button:hover {
+  background-color: var(--background-color);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.user-jobs__list {
+  list-style: none;
+  padding: 1rem;
+  margin: 0;
+  max-height: 21rem;
+  overflow-y: scroll;
+  position: relative;
+  scrollbar-width: auto; 
+  scrollbar-color: var(--primary-color);
+}
+
+/* Chrome, Edge, Safari */
+.user-jobs__list::-webkit-scrollbar {
+  width: .4rem;
+  background: #e0e0e0;
+}
+.user-jobs__list::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 1rem;
+}
+.user-jobs__list::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
