@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./style/UserJobs.css";
+import "./style/UsersJobs.css";
 
 const DUMMY_JOBS = [
   {
@@ -29,8 +29,8 @@ const DUMMY_JOBS = [
   },
 ];
 
-const UserJobs = () => {
-  return <div className="user-jobs">UserJobs</div>;
+const UsersJobs = () => {
+  return <div className="user-jobs">UsersJobs</div>;
 };
 
-export default UserJobs;
+export default UsersJobs;

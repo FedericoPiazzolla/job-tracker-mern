@@ -1,4 +1,5 @@
 .user-jobs {
   background-color: var(--background-color);
   margin-top: 5rem;
+  height: calc(100vh - 5rem);
 }
