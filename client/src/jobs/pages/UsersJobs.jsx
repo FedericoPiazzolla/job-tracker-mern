@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { NavLink } from "react-router-dom";
 import JobCard from "../components/JobCard";
+import JobsFilters from "../components/JobsFilters";
 
 import "./style/UsersJobs.css";
 
@@ -56,10 +57,35 @@ const DUMMY_JOBS = [
     salary: "$90,000 - $110,000",
     creator: "u1",
   },
+  {
+    id: "j5",
+    title: "DevOps Engineer",
+    description: "Manage and optimize cloud infrastructure.",
+    website: "https://example.com",
+    company: "Tech Corp",
+    location: "Boston, MA",
+    status: "applied",
+    date: "2023-10-05",
+    salary: "$105,000 - $125,000",
+    creator: "u1",
+  },
 ];
 
 const UsersJobs = () => {
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [statusFilter, setStatusFilter] = useState("all");
+
   const hasApplications = DUMMY_JOBS.length > 0;
+
+  const filteredJobs = DUMMY_JOBS.filter((job) =>
+    statusFilter === "all" ? true : job.status === statusFilter
+  ).sort((a, b) => {
+    if (sortOrder === "asc") {
+      return new Date(a.date) - new Date(b.date);
+    } else {
+      return new Date(b.date) - new Date(a.date);
+    }
+  });
 
   return (
     <div className="user-jobs">
@@ -74,16 +100,28 @@ const UsersJobs = () => {
       <ul className="user-jobs__list">
         {hasApplications ? (
           <>
-            <li className="user-jobs__list-title">Current Applications</li>
-            {DUMMY_JOBS.map((job) => (
-              <JobCard
-                key={job.id}
-                id={job.id}
-                title={job.title}
-                location={job.location}
-                status={job.status}
-                date={job.date}
+            <li className="user-jobs__list-title">
+              Current Applications
+              <JobsFilters
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+                statusFilter={statusFilter}
+                setStatusFilter={setStatusFilter}
               />
+            </li>
+            {filteredJobs.map((job) => (
+              <NavLink
+                to={`/u1/jobs/${job.id}`}
+                key={job.id}
+                className="user-jobs__item-link">
+                <JobCard
+                  id={job.id}
+                  title={job.title}
+                  location={job.location}
+                  status={job.status}
+                  date={job.date}
+                />
+              </NavLink>
             ))}
           </>
         ) : (

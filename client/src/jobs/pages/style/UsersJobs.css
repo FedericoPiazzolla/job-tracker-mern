@@ -1,7 +1,8 @@
 .user-jobs {
-  background-color: var(--background-color);
-  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
   height: calc(100vh - 5rem);
+  background-color: var(--background-color);
   width: 100%;
   max-width: 100vw;
   margin: 0 auto;
@@ -21,7 +22,7 @@
 .user-jobs__header h2 {
   padding: 0.5rem 1rem;
   background-color: var(--primary-color);
-  color: white;
+  color: var(--background-color);
   border-radius: 0.5rem;
   font-size: 1.2rem;
   text-align: center;
@@ -30,16 +31,102 @@
 
 /* Solo la list-title */
 .user-jobs__list-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
   padding: 0.5rem 1rem;
   background-color: var(--primary-color);
-  color: white;
-  border-radius: 0.5rem 0.5rem  0 0 ;
-  font-size: 1.2rem;
-  text-align: center;
+  color: var(--background-color);
+  border-radius: 0.5rem 0.5rem 0 0;
+  font-size: 1.1rem;
+  text-align: left;
   margin: 0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
+
+.user-jobs__list-title-text {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.user-jobs__list-title > div {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.user-jobs__filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0;
+}
+
+.user-jobs__filters label {
+  color: var(--background-color);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.user-jobs__filters select {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.3rem;
+  border: none;
+  font-size: 1rem;
+  background: var(--background-color);
+  color: var(--primary-color);
+  font-weight: 500;
+  outline: none;
+  transition: border 0.2s;
+}
+
+
+.user-jobs__list-title label {
+  color: var(--background-color);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.user-jobs__list-title select {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.3rem;
+  border: none;
+  font-size: 1rem;
+  background: var(--background-color);
+  color: var(--primary-color);
+  font-weight: 500;
+  outline: none;
+  transition: border 0.2s;
+}
+
+
 .user-jobs__list-title + .user-jobs__item {
   border-radius: 0 0 .5rem .5rem;
+}
+
+
+.user-jobs__item-link {
+  text-decoration: none;
+  color: inherit;
+  background-color: var(--background-color);
+  border-radius: 0 0 0.5rem 0.5rem;
+  display: block;
+  transition:
+    background-color 0.3s,
+    transform 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+.user-jobs__item-link:hover {
+  background-color: var(--text-color);
+  z-index: 1;
 }
 
 .user-jobs__add-button {
@@ -49,7 +136,7 @@
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   background-color: var(--primary-color);
-  color: white;
+  color: var(--background-color);
   border-radius: 0.5rem;
   cursor: pointer;
   text-decoration: none;
@@ -71,7 +158,8 @@
 .user-jobs__add-button:hover {
   background-color: var(--background-color);
   border: 1px solid var(--primary-color);
-  color: var(--primary-color);
+  border-radius: 0.5rem;
+  color: var(--primary-color);  
 }
 
 /* Lista candidature */
@@ -79,25 +167,26 @@
   list-style: none;
   padding: 1rem 0;
   margin: 0;
-  max-height: 21rem;
-  overflow-y: scroll;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto; 
   position: relative;
   scrollbar-width: auto;
-  scrollbar-color: var(--primary-color) #e0e0e0;
+  scrollbar-color: var(--primary-color) var(--background-color);
 }
 
 /* Scrollbar Chrome, Edge, Safari */
 .user-jobs__list::-webkit-scrollbar {
   width: 0.8rem;
-  background: #e0e0e0;
+  background: var(--background-color);
 }
 .user-jobs__list::-webkit-scrollbar-thumb {
   background: var(--primary-color);
   border-radius: 1rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--background-color);
 }
 .user-jobs__list::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  background: var(--background-color);
 }
 
 /* Messaggio nessuna candidatura */
@@ -105,14 +194,14 @@
   padding: 2rem 1rem;
   text-align: center;
   color: var(--primary-color);
-  background: #f8f8f8;
+  background: var(--background-color);
   border-radius: 0.5rem;
   font-size: 1.1rem;
   margin: 2rem 0;
 }
 
 /* Desktop/tablet: header in riga */
-@media (min-width: 600px) {
+@media (min-width: 768px) {
   .user-jobs__header {
     flex-direction: row;
     align-items: center;
@@ -126,9 +215,21 @@
     margin: 0;
   }
   .user-jobs__list-title {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     font-size: 1.5rem;
-    text-align: left;
-    margin: 0;
+    padding: 1rem 2rem;
+  }
+  .user-jobs__item-link:hover {
+    transform: scaleX(1.01);
+  }
+  .user-jobs__filters {
+    gap: 1rem;
+  }
+  .user-jobs__list-title > div {
+    justify-content: flex-end;
+    margin-top: 0.5rem;
   }
   .user-jobs__list-title + .user-jobs__item {
     border-radius: 0 0 0.5rem 0.5rem;
