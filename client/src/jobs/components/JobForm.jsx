@@ -1,31 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import Input from "../../shared/components/FormElements/Input";
 
-import Input from "../../shared/components/Input";
+const JobForm = ({ job = {}, onCancel, onSave }) => {
+  const [formData, setFormData] = useState({
+    title: job.title || "",
+    description: job.description || "",
+    website: job.website || "",
+    company: job.company || "",
+    location: job.location || "",
+    status: job.status || "",
+    date: job.date || "",
+    salary: job.salary || "",
+    creator: job.creator || "",
+  });
 
-const JobForm = (props) => {
-  const [isEditing, setIsEditing] = React.useState(false);
+  const handleInput = (id, value) => {
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (onSave) onSave(formData);
+  };
+
   return (
-    <form>
-      {isEditing ? (
-        <Input
-          id="description"
-          type="text"
-          element="textarea"
-          label="Job Description"
-          placeholder="Enter job description"
-          required
-          value={props.jobData.description || ""}
-        />
-      ) : (
-        <Input
-          id="title"
-          type="text"
-          label="Job Title"
-          placeholder="Enter job title"
-          required
-          value={props.jobData.title || ""}
-          disabled
-        />
+    <form onSubmit={handleSubmit}>
+      <Input
+        id="title"
+        type="text"
+        value={formData.title}
+        onInput={handleInput}
+      />
+      <Input
+        id="description"
+        type="text"
+        element="textarea"
+        value={formData.description}
+        onInput={handleInput}
+      />
+      <button type="submit">Save</button>
+      {onCancel && (
+        <button type="button" onClick={onCancel}>
+          Cancel
+        </button>
       )}
     </form>
   );

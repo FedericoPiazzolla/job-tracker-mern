@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./style/ShowUserJob.css";
+import JobForm from "../components/JobForm";
 
 const statusClass = {
   applied: "status-applied",
@@ -25,11 +26,16 @@ const DUMMY_JOBS = [
 ];
 
 const ShowUserJob = () => {
+  const [isEditing, setIsEditing] = React.useState(false);
+  const job = DUMMY_JOBS[0]; // oppure trova il job giusto
+
   return (
     <div className="userJojb-container">
       <div className="userJob-list">
-        {DUMMY_JOBS.map((job) => (
-          <div key={job.id} className="userJob-item">
+        {isEditing ? (
+          <JobForm job={job} onCancel={() => setIsEditing(false)} />
+        ) : (
+          <div className="userJob-item">
             <h3>{job.title}</h3>
             <p>{job.description}</p>
             <ul>
@@ -57,13 +63,17 @@ const ShowUserJob = () => {
             </ul>
 
             <div className="userJob-actions">
-              <button className="user-job-btn userJob-edit-btn">Edit</button>
+              <button
+                className="user-job-btn userJob-edit-btn"
+                onClick={() => setIsEditing(true)}>
+                Edit
+              </button>
               <button className="user-job-btn userJob-delete-btn">
                 Delete
               </button>
             </div>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
