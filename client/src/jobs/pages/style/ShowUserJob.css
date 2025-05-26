@@ -69,6 +69,7 @@
   font-weight: bold;
   text-decoration: none;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .userJob-delete-btn {
@@ -83,7 +84,6 @@
   font-size: 0.9rem;
   font-weight: bold;
   text-align: center;
-  margin-top: 1rem;
 }
 
 /* Status color variants */
