@@ -111,7 +111,7 @@ const UsersJobs = () => {
             </li>
             {filteredJobs.map((job) => (
               <NavLink
-                to={`/u1/jobs/${job.id}`}
+                to={`/u1/jobs/j1`} //da sostituire con id reali a db
                 key={job.id}
                 className="user-jobs__item-link">
                 <JobCard

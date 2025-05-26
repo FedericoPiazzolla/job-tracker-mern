@@ -1,0 +1,119 @@
+.userJojb-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 4rem);
+  background: var(--primary-color);
+}
+
+.userJob-list {
+  background-color: var(--background-color);
+  padding: 2.5rem 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.12), 0 1.5px 4px 0 rgba(0,0,0,0.10);
+  min-width: 320px;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  position: relative;
+}
+
+.userJob-list h3 {
+  align-self: center;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: var(--background-color);
+  color: var(--primary-color);
+  padding: 0.7rem 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10), 0 1px 2px 0 rgba(0,0,0,0.08);
+  position: absolute ;
+  top: -3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.userJob-list p {
+  margin-top: 2rem;
+}
+
+.userJob-list ul {
+  list-style: none;
+}
+
+.userJob-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.user-job-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  border-color: transparent;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.userJob-delete-btn {
+  background-color: red;
+  color: var(--background-color);
+}
+
+.userJob-status {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Status color variants */
+.userJob-status.status-applied {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+.userJob-status.status-interviewing {
+  background: #fffde7;
+  color: #fbc02d;
+}
+.userJob-status.status-offer {
+  background: #c8e6c9;
+  color: #388e3c;
+}
+.userJob-status.status-rejected {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .userJob-list {
+    padding: 1.2rem 0.5rem;
+    min-width: unset;
+    max-width: 98vw;
+  }
+
+  .userJob-list h3 {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    top: -1.2rem;
+  }
+}
