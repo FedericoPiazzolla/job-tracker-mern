@@ -31,11 +31,8 @@ const Input = (props) => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const { id, onInput } = props;
+  const { id } = props;
   const { value, isValid } = inputSate;
-  useEffect(() => {
-    onInput(id, value, isValid);
-  }, [id, onInput, value, isValid]);
 
   const changeHandler = (event) => {
     dispatch({
@@ -43,14 +40,20 @@ const Input = (props) => {
       val: event.target.value,
       validators: props.validators,
     });
+    if (props.onChange) {
+      props.onChange(event);
+    }
   };
 
   const touchHandler = () => {
     dispatch({ type: "TOUCH" });
   };
 
+  // Imposta "input" come valore di default per element
+  const elementType = props.element || "input";
+
   let element;
-  if (props.element === "input" && props.type === "password") {
+  if (elementType === "input" && props.type === "password") {
     element = (
       <div className="input-password-wrapper">
         <input
@@ -70,7 +73,7 @@ const Input = (props) => {
         </span>
       </div>
     );
-  } else if (props.element === "input") {
+  } else if (elementType === "input") {
     element = (
       <input
         id={props.id}

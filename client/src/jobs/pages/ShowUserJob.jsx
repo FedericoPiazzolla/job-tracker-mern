@@ -40,13 +40,15 @@ const ShowUserJob = () => {
             <p>{job.description}</p>
             <ul>
               <li>
-                <strong>Company:</strong> {job.company}
+                <strong className="userJob-item-strong">Company:</strong>{" "}
+                {job.company}
               </li>
               <li>
-                <strong>Location:</strong> {job.location}
+                <strong className="userJob-item-strong">Location:</strong>{" "}
+                {job.location}
               </li>
               <li>
-                <strong>Status:</strong>{" "}
+                <strong className="userJob-item-strong">Status:</strong>{" "}
                 <span
                   className={`userJob-status ${
                     statusClass[job.status?.toLowerCase()] || ""
@@ -55,10 +57,12 @@ const ShowUserJob = () => {
                 </span>
               </li>
               <li>
-                <strong>Date:</strong> {new Date(job.date).toLocaleDateString()}
+                <strong className="userJob-item-strong">Date:</strong>{" "}
+                {new Date(job.date).toLocaleDateString()}
               </li>
               <li>
-                <strong>Salary:</strong> {job.salary}
+                <strong className="userJob-item-strong">Salary:</strong>{" "}
+                {job.salary}
               </li>
             </ul>
 
