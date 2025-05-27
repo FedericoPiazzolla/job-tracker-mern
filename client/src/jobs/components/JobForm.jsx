@@ -1,7 +1,13 @@
 import React, { useState } from "react";
+
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
+} from "../../shared/util/validators";
 import Input from "../../shared/components/FormElements/Input";
 
-const JobForm = ({ job = {}, onCancel, onSave, mode = "create" }) => {
+const JobForm = ({ job = {}, onSave, mode = "create" }) => {
   const [formData, setFormData] = useState({
     title: job.title || "",
     description: job.description || "",
@@ -30,71 +36,94 @@ const JobForm = ({ job = {}, onCancel, onSave, mode = "create" }) => {
         <>
           <Input
             id="title"
+            element="input"
             type="text"
+            label="Application title"
+            validators={[VALIDATOR_REQUIRE()]}
             value={formData.title}
             onChange={handleChange}
-            label="Title"
+            errorText="Please enter a title."
           />
           <Input
             id="company"
+            element="input"
             type="text"
+            label="Application company"
+            validators={[VALIDATOR_REQUIRE()]}
             value={formData.company}
             onChange={handleChange}
-            label="Company"
+            errorText="Please enter a company."
           />
           <Input
             id="location"
+            element="input"
             type="text"
+            label="Application location"
+            validators={[VALIDATOR_REQUIRE()]}
             value={formData.location}
             onChange={handleChange}
-            label="Location"
+            errorText="Please enter a location."
           />
           <Input
             id="website"
+            element="input"
             type="text"
+            label="Application website"
+            validators={[VALIDATOR_REQUIRE()]}
             value={formData.website}
             onChange={handleChange}
-            label="Website"
+            errorText="Please enter a website."
           />
           <Input
             id="date"
+            element="input"
             type="date"
+            label="Application date"
+            validators={[VALIDATOR_REQUIRE()]}
             value={formData.date}
             onChange={handleChange}
-            label="Date"
+            errorText="Please enter a date."
           />
         </>
       )}
-      {/* Questi campi sono sempre visibili in edit e create */}
       <Input
         id="description"
         type="text"
         element="textarea"
+        label="Application description"
+        validators={[VALIDATOR_REQUIRE()]}
         value={formData.description}
         onChange={handleChange}
-        label="Description"
+        errorText="Please enter a description."
       />
       <Input
         id="salary"
+        element="input"
         type="text"
+        label="Application salary"
+        validators={[VALIDATOR_REQUIRE()]}
         value={formData.salary}
         onChange={handleChange}
-        label="Salary"
+        errorText="Please enter a salary."
       />
       <Input
         id="status"
-        type="text"
+        element="select"
+        label="Application status"
+        validators={[VALIDATOR_REQUIRE()]}
         value={formData.status}
         onChange={handleChange}
-        label="Status"
+        options={[
+          { value: "", label: "Select status" },
+          { value: "applied", label: "Applied" },
+          { value: "interviewing", label: "Interviewing" },
+          { value: "offer", label: "Offer" },
+          { value: "rejected", label: "Rejected" },
+        ]}
+        errorText="Please select a status."
       />
       <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
         <button type="submit">Save</button>
-        {onCancel && (
-          <button type="button" onClick={onCancel}>
-            Cancel
-          </button>
-        )}
       </div>
     </form>
   );

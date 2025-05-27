@@ -31,6 +31,27 @@
   border-color: var(--primary-color);
 }
 
+.form-control select {
+  width: 100%;
+  font: inherit;
+  border: 1px solid #ccc;
+  background: var(background-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+  transition: border-color 0.2s, background 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.form-control select:focus {
+  outline: none;
+  background: var(background-color);
+  border-color: var(--primary-color);
+}
+
 .form-control--invalid label,
 .form-control--invalid p {
   color: red;
@@ -40,6 +61,12 @@
 .form-control--invalid textarea {
   border-color: red;
   background: #ffd1d1;
+}
+
+.form-control--invalid select {
+  border-color: red;
+  background: #ffd1d1;
+  color: red;
 }
 
 .input-password-wrapper {

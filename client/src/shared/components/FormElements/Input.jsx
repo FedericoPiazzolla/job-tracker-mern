@@ -11,7 +11,6 @@ const inputReducer = (state, action) => {
         value: action.val,
         isValid: validate(action.val, action.validators),
       };
-
     case "TOUCH":
       return {
         ...state,
@@ -49,11 +48,23 @@ const Input = (props) => {
     dispatch({ type: "TOUCH" });
   };
 
-  // Imposta "input" come valore di default per element
-  const elementType = props.element || "input";
-
   let element;
-  if (elementType === "input" && props.type === "password") {
+  if (props.element === "select") {
+    element = (
+      <select
+        id={props.id}
+        value={inputSate.value}
+        onChange={changeHandler}
+        onBlur={touchHandler}>
+        {props.options &&
+          props.options.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+      </select>
+    );
+  } else if (props.element === "input" && props.type === "password") {
     element = (
       <div className="input-password-wrapper">
         <input
@@ -73,7 +84,7 @@ const Input = (props) => {
         </span>
       </div>
     );
-  } else if (elementType === "input") {
+  } else if (props.element === "input") {
     element = (
       <input
         id={props.id}

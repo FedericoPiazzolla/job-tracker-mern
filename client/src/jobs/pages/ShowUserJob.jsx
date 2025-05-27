@@ -33,7 +33,7 @@ const ShowUserJob = () => {
     <div className="userJojb-container">
       <div className="userJob-list">
         {isEditing ? (
-          <JobForm job={job} onCancel={() => setIsEditing(false)} />
+          <JobForm job={job} mode="edit" />
         ) : (
           <div className="userJob-item">
             <h3>{job.title}</h3>
