@@ -18,8 +18,8 @@
 .form-control textarea {
   width: 100%;
   font: inherit;
-  border: 1px solid #ccc;
-  background: #f8f8f8;
+  border: 1px solid var(--primary-color);
+  background: var(--background-color);
   padding: 0.4rem 0.8rem;
   border-radius: 5px;
 }
@@ -34,8 +34,8 @@
 .form-control select {
   width: 100%;
   font: inherit;
-  border: 1px solid #ccc;
-  background: var(background-color);
+  border: 1px solid var(--primary-color);
+  background: var(--background-color);
   padding: 0.4rem 0.8rem;
   border-radius: 5px;
   margin-bottom: 0.5rem;
@@ -48,7 +48,7 @@
 
 .form-control select:focus {
   outline: none;
-  background: var(background-color);
+  background: var(--background-color);
   border-color: var(--primary-color);
 }
 

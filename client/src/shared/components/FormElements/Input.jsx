@@ -1,79 +1,60 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { validate } from "../../util/validators";
 import "./style/Input.css";
 
-const inputReducer = (state, action) => {
-  switch (action.type) {
-    case "CHANGE":
-      return {
-        ...state,
-        value: action.val,
-        isValid: validate(action.val, action.validators),
-      };
-    case "TOUCH":
-      return {
-        ...state,
-        isTouch: true,
-      };
-    default:
-      return state;
-  }
-};
-
 const Input = (props) => {
-  const [inputSate, dispatch] = useReducer(inputReducer, {
-    value: props.initialValue || "",
-    isValid: props.initialValid || false,
-    isTouch: false,
-  });
-
   const [showPassword, setShowPassword] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
 
-  const { id } = props;
-  const { value, isValid } = inputSate;
+  const {
+    id,
+    value,
+    onChange,
+    label,
+    placeholder,
+    type,
+    element,
+    options,
+    rows,
+    errorText,
+    validators = [],
+  } = props;
 
-  const changeHandler = (event) => {
-    dispatch({
-      type: "CHANGE",
-      val: event.target.value,
-      validators: props.validators,
-    });
-    if (props.onChange) {
-      props.onChange(event);
-    }
+  const validFns = Array.isArray(validators)
+    ? validators.filter((fn) => typeof fn === "function")
+    : [];
+  const isValid =
+    validFns.length === 0
+      ? true
+      : validFns.every((validator) => validator(value));
+
+  const handleBlur = (e) => {
+    setIsTouched(true);
+    if (props.onBlur) props.onBlur(e);
   };
 
-  const touchHandler = () => {
-    dispatch({ type: "TOUCH" });
-  };
-
-  let element;
-  if (props.element === "select") {
-    element = (
-      <select
-        id={props.id}
-        value={inputSate.value}
-        onChange={changeHandler}
-        onBlur={touchHandler}>
-        {props.options &&
-          props.options.map((opt) => (
+  let inputElement;
+  if (element === "select") {
+    inputElement = (
+      <select id={id} value={value} onChange={onChange} onBlur={handleBlur}>
+        {options &&
+          options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
             </option>
           ))}
       </select>
     );
-  } else if (props.element === "input" && props.type === "password") {
-    element = (
+  } else if (element === "input" && type === "password") {
+    inputElement = (
       <div className="input-password-wrapper">
         <input
-          id={props.id}
+          id={id}
           type={showPassword ? "text" : "password"}
-          placeholder={props.placeholder}
-          onChange={changeHandler}
-          onBlur={touchHandler}
-          value={inputSate.value}
+          placeholder={placeholder}
+          onChange={onChange}
+          onBlur={handleBlur}
+          value={value}
         />
         <span
           className="input-password-toggle"
@@ -84,37 +65,38 @@ const Input = (props) => {
         </span>
       </div>
     );
-  } else if (props.element === "input") {
-    element = (
-      <input
-        id={props.id}
-        type={props.type}
-        placeholder={props.placeholder}
-        onChange={changeHandler}
-        onBlur={touchHandler}
-        value={inputSate.value}
+  } else if (element === "textarea") {
+    inputElement = (
+      <textarea
+        id={id}
+        rows={rows || "3"}
+        onChange={onChange}
+        onBlur={handleBlur}
+        value={value}
+        placeholder={placeholder}
       />
     );
   } else {
-    element = (
-      <textarea
-        id={props.id}
-        rows={props.rows || "3"}
-        onChange={changeHandler}
-        onBlur={touchHandler}
-        value={inputSate.value}
+    inputElement = (
+      <input
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange}
+        onBlur={handleBlur}
+        value={value}
       />
     );
   }
 
   return (
     <div
-      className={`form-control ${
-        !inputSate.isValid && inputSate.isTouch && "form-control--invalid"
+      className={`form-control${
+        !isValid && isTouched ? " form-control--invalid" : ""
       }`}>
-      <label htmlFor={props.id}>{props.label}</label>
-      {element}
-      {!inputSate.isValid && inputSate.isTouch && <p>{props.errorText}</p>}
+      <label htmlFor={id}>{label}</label>
+      {inputElement}
+      {!isValid && isTouched && errorText && <p>{errorText}</p>}
     </div>
   );
 };

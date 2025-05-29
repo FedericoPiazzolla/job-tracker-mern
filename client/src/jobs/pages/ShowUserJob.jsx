@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./style/ShowUserJob.css";
 import JobForm from "../components/JobForm";
 
@@ -27,13 +26,18 @@ const DUMMY_JOBS = [
 
 const ShowUserJob = () => {
   const [isEditing, setIsEditing] = React.useState(false);
-  const job = DUMMY_JOBS[0]; // oppure trova il job giusto
+  const [job, setJob] = React.useState(DUMMY_JOBS[0]);
+
+  const handleSave = (updatedJob) => {
+    setJob(updatedJob); // aggiorna i dati
+    setIsEditing(false); // chiudi il form
+  };
 
   return (
     <div className="userJojb-container">
       <div className="userJob-list">
         {isEditing ? (
-          <JobForm job={job} mode="edit" />
+          <JobForm job={job} mode="edit" onSave={handleSave} />
         ) : (
           <div className="userJob-item">
             <h3>{job.title}</h3>

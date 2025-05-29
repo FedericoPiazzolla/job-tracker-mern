@@ -7,6 +7,8 @@ import {
 } from "../../shared/util/validators";
 import Input from "../../shared/components/FormElements/Input";
 
+import "./style/JobForm.css";
+
 const JobForm = ({ job = {}, onSave, mode = "create" }) => {
   const [formData, setFormData] = useState({
     title: job.title || "",
@@ -31,7 +33,8 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="job-form" onSubmit={handleSubmit}>
+      <h2>{formData.title}</h2>
       {mode === "create" && (
         <>
           <Input
@@ -122,7 +125,7 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
         ]}
         errorText="Please select a status."
       />
-      <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+      <div className="form-btn-wrapper">
         <button type="submit">Save</button>
       </div>
     </form>
