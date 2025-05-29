@@ -41,7 +41,7 @@ const ShowUserJob = () => {
         ) : (
           <div className="userJob-item">
             <h3>{job.title}</h3>
-            <p>{job.description}</p>
+            <p className="userJob-list-description">{job.description}</p>
             <ul>
               <li>
                 <strong className="userJob-item-strong">Company:</strong>{" "}

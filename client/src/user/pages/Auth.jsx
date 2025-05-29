@@ -14,7 +14,7 @@ const Auth = () => {
     <div className="auth-wrapper">
       <div className="auth-container">
         <h2 className="auth-title">{isLogin ? "Login" : "Sign Up"}</h2>
-        <form>
+        <form className="auth-form">
           {!isLogin && (
             <Input
               id="name"

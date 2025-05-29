@@ -34,7 +34,7 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
 
   return (
     <form className="job-form" onSubmit={handleSubmit}>
-      <h2>{formData.title}</h2>
+      {mode === "edit" && <h2>{formData.title}</h2>}
       {mode === "create" && (
         <>
           <Input

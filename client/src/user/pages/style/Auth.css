@@ -16,6 +16,12 @@
   padding-top: 3.5rem;
 }
 
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .auth-title {
   position: absolute;
   top: -10%;
