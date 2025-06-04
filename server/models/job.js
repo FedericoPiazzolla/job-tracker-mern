@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const placeSchema = new Schema({
+const JobSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   website: { type: String },
@@ -19,4 +19,4 @@ const placeSchema = new Schema({
   // un place può essere creato solo da un utente
 });
 
-module.exports = mongoose.model("Place", placeSchema);
+module.exports = mongoose.model("Job", JobSchema);
