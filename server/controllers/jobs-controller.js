@@ -35,17 +35,12 @@ const getJobsByUserId = async (req, res, next) => {
   try {
     userWithJobs = await User.findById(userId).populate("jobs");
   } catch (err) {
-    const error = new HttpError(
-      "Fetching jobs failed, please try again later.",
-      500
-    );
-    return next(error);
+    return next(new HttpError("Fetching jobs failed, please try again later.", 500));
   }
-  if (!userWithJobs || userWithJobs.jobs.length === 0) {
-    return next(
-      new HttpError("Could not find jobs for the provided user id.", 404)
-    );
+  if (!userWithJobs) {
+    return next(new HttpError("Could not find user for the provided id.", 404));
   }
+  // Se l'utente esiste ma non ha jobs, restituisci array vuoto
   res.json({
     jobs: userWithJobs.jobs.map((job) => job.toObject({ getters: true })),
   });
