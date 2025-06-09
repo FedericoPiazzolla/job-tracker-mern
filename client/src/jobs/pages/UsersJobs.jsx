@@ -1,85 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
 
-import { NavLink } from "react-router-dom";
 import JobCard from "../components/JobCard";
 import JobsFilters from "../components/JobsFilters";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 import "./style/UsersJobs.css";
 
-import { FaPlus } from "react-icons/fa";
-
-const DUMMY_JOBS = [
-  {
-    id: "j1",
-    title: "Software Engineer",
-    description: "Develop and maintain software applications.",
-    website: "https://example.com",
-    company: "Tech Corp",
-    location: "New York, NY",
-    status: "applied",
-    date: "2023-10-01",
-    salary: "$100,000 - $120,000",
-    creator: "u1",
-  },
-  {
-    id: "j2",
-    title: "Data Scientist",
-    description: "Analyze and interpret complex data sets.",
-    website: "https://example.com",
-    company: "Tech Corp",
-    location: "San Francisco, CA",
-    status: "interviewing",
-    date: "2023-10-02",
-    salary: "$120,000 - $140,000",
-    creator: "u1",
-  },
-  {
-    id: "j3",
-    title: "Product Manager",
-    description: "Lead product development and strategy.",
-    website: "https://example.com",
-    company: "Tech Corp",
-    location: "Austin, TX",
-    status: "offer",
-    date: "2023-10-03",
-    salary: "$110,000 - $130,000",
-    creator: "u1",
-  },
-  {
-    id: "j4",
-    title: "UX Designer",
-    description: "Design user-friendly interfaces and experiences.",
-    website: "https://example.com",
-    company: "Tech Corp",
-    location: "Seattle, WA",
-    status: "rejected",
-    date: "2023-10-04",
-    salary: "$90,000 - $110,000",
-    creator: "u1",
-  },
-  {
-    id: "j5",
-    title: "DevOps Engineer",
-    description: "Manage and optimize cloud infrastructure.",
-    website: "https://example.com",
-    company: "Tech Corp",
-    location: "Boston, MA",
-    status: "applied",
-    date: "2023-10-05",
-    salary: "$105,000 - $125,000",
-    creator: "u1",
-  },
-];
-
 const UsersJobs = () => {
+  const [loadedJobs, setLoadedJobs] = useState();
   const [sortOrder, setSortOrder] = useState("desc");
   const [statusFilter, setStatusFilter] = useState("all");
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  const hasApplications = DUMMY_JOBS.length > 0;
+  const userId = useParams().userId;
 
-  const filteredJobs = DUMMY_JOBS.filter((job) =>
-    statusFilter === "all" ? true : job.status === statusFilter
-  ).sort((a, b) => {
+  useEffect(() => {
+    console.log("Fetching jobs for userId:", userId);
+    const fetchJobs = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:5010/api/jobs/user/${userId}`
+        );
+        console.log("Response data from backend:", responseData);
+        setLoadedJobs(responseData.jobs);
+      } catch (err) {
+        console.error("Error fetching jobs:", err);
+      }
+    };
+
+    fetchJobs();
+  }, [sendRequest, userId]);
+
+  const jobDeletedHandler = (deletedJobId) => {
+    console.log("Deleting job with id:", deletedJobId);
+    setLoadedJobs((prevJobs) =>
+      prevJobs.filter((job) => job.id !== deletedJobId)
+    );
+  };
+
+  const hasApplications = loadedJobs && loadedJobs.length > 0;
+
+  const filteredJobs = loadedJobs
+    ? loadedJobs.filter((job) =>
+        statusFilter === "all" ? true : job.status === statusFilter
+      )
+    : [];
+
+  filteredJobs.sort((a, b) => {
     if (sortOrder === "asc") {
       return new Date(a.date) - new Date(b.date);
     } else {
@@ -87,10 +58,14 @@ const UsersJobs = () => {
     }
   });
 
+  console.log("Loaded jobs:", loadedJobs);
+  console.log("Filtered jobs:", filteredJobs);
+  console.log("isLoading:", isLoading, "error:", error);
+
   return (
     <div className="user-jobs">
       <div className="user-jobs__header">
-        <NavLink to="/jobs/u1/new" className="user-jobs__add-button">
+        <NavLink to={`/jobs/${userId}/new`} className="user-jobs__add-button">
           Add Application
           <span>
             <FaPlus />
@@ -109,20 +84,6 @@ const UsersJobs = () => {
                 setStatusFilter={setStatusFilter}
               />
             </li>
-            {filteredJobs.map((job) => (
-              <NavLink
-                to={`/u1/jobs/j1`} //da sostituire con id reali a db
-                key={job.id}
-                className="user-jobs__item-link">
-                <JobCard
-                  id={job.id}
-                  title={job.title}
-                  location={job.location}
-                  status={job.status}
-                  date={job.date}
-                />
-              </NavLink>
-            ))}
           </>
         ) : (
           <li className="user-jobs__empty">
@@ -131,6 +92,15 @@ const UsersJobs = () => {
           </li>
         )}
       </ul>
+      {isLoading && (
+        <div className="center">
+          <LoadingSpinner asOverlay />
+        </div>
+      )}
+      {!isLoading && loadedJobs && (
+        <JobCard items={loadedJobs} onDeleteJob={jobDeletedHandler} />
+      )}
+      <ErrorModal error={error} onClear={clearError} />
     </div>
   );
 };

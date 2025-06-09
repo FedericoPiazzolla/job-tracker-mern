@@ -9,6 +9,9 @@ const statusClass = {
 };
 
 const JobCard = (props) => {
+  // Se non c'è un job, non renderizzare nulla
+  if (!props.id) return null;
+
   const statusKey = props.status?.toLowerCase();
   return (
     <li key={props.id} className="user-jobs__item">

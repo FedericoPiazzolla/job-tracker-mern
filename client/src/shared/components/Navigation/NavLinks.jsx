@@ -16,9 +16,7 @@ const NavLinks = () => {
       </li>
       {auth.isLoggedIn && (
         <li>
-          <NavLink to={`http://localhost:5010/api/jobs/user/${auth.userId}`}>
-            My Applications
-          </NavLink>
+          <NavLink to={`/${auth.userId}/jobs`}>My Applications</NavLink>
         </li>
       )}
       {!auth.isLoggedIn && (
