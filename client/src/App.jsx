@@ -1,29 +1,71 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UsersJobs from "./jobs/pages/UsersJobs";
-import ShowUserJob from "./jobs/pages/ShowUserJob";
+import React, { Suspense } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import LandingPage from "./jobs/pages/LandingPage";
-import Auth from "./user/pages/Auth";
-import NewJob from "./jobs/pages/NewJob";
+import { AuthContext } from "./shared/context/auth-context";
+import { useAuth } from "./shared/hooks/auth-hook";
+import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 
-function App() {
+// Lazy loading delle pagine
+const LandingPage = React.lazy(() => import("./jobs/pages/LandingPage"));
+const UsersJobs = React.lazy(() => import("./jobs/pages/UsersJobs"));
+const ShowUserJob = React.lazy(() => import("./jobs/pages/ShowUserJob"));
+const NewJob = React.lazy(() => import("./jobs/pages/NewJob"));
+const Auth = React.lazy(() => import("./user/pages/Auth"));
+
+const App = () => {
+  const { token, login, logout, userId } = useAuth();
+
+  let routes;
+
+  if (token) {
+    routes = (
+      <>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/u1/jobs" element={<UsersJobs />} />
+        <Route path="/u1/jobs/j1" element={<ShowUserJob />} />
+        <Route path="/jobs/u1/new" element={<NewJob />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </>
+    );
+  } else {
+    routes = (
+      <>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="*" element={<Navigate to="/auth" replace />} />
+      </>
+    );
+  }
+
   return (
-    <Router>
-      <MainNavigation />
-      <main>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/u1/jobs" element={<UsersJobs />} />
-          <Route path="/u1/jobs/j1" element={<ShowUserJob />} />
-          <Route path="/jobs/u1/new" element={<NewJob />} />
-          {/*da sostituire con job id reale preso dl database */}
-          <Route path="/auth" element={<Auth />} />
-          {/* Add more routes as needed */}
-        </Routes>
-      </main>
-    </Router>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: !!token,
+        token: token,
+        userId: userId,
+        login: login,
+        logout: logout,
+      }}>
+      <Router>
+        <MainNavigation />
+        <main>
+          <Suspense
+            fallback={
+              <div className="center">
+                <LoadingSpinner />
+              </div>
+            }>
+            <Routes>{routes}</Routes>
+          </Suspense>
+        </main>
+      </Router>
+    </AuthContext.Provider>
   );
-}
+};
 
 export default App;
