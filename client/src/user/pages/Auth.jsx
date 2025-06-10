@@ -91,6 +91,7 @@ const Auth = () => {
               validators={[VALIDATOR_REQUIRE()]}
               onInput={inputHandler}
               errorText="Please enter a name."
+              value={formState.inputs.name ? formState.inputs.name.value : ""}
             />
           )}
           <Input
@@ -101,6 +102,7 @@ const Auth = () => {
             validators={[VALIDATOR_EMAIL()]}
             onInput={inputHandler}
             errorText="Please enter a valid email address."
+            value={formState.inputs.email.value}
           />
           <Input
             id="password"
@@ -110,6 +112,7 @@ const Auth = () => {
             validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(6)]}
             onInput={inputHandler}
             errorText="Please enter a valid password (at least 6 characters)."
+            value={formState.inputs.password.value}
           />
           <Button type="submit" disabled={!formState.isValid}>
             {isLoginMode ? "LOGIN" : "SIGNUP"}

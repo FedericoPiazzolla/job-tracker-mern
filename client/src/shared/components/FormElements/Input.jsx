@@ -1,61 +1,30 @@
-import React, { useReducer, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { validate } from "../../util/validators";
 import "./style/Input.css";
 
-const inputReducer = (state, action) => {
-  switch (action.type) {
-    case "CHANGE":
-      return {
-        ...state,
-        value: action.val,
-        isValid: validate(action.val, action.validators),
-      };
-    case "TOUCH":
-      return {
-        ...state,
-        isTouched: true,
-      };
-    default:
-      return state;
-  }
-};
-
 const Input = (props) => {
+  const [isTouched, setIsTouched] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.initialValue || "",
-    isValid: props.initialValid || false,
-    isTouched: false,
-  });
-
-  const { id, onInput, validators = [] } = props;
-  const { value, isValid, isTouched } = inputState;
-
-  useEffect(() => {
-    if (onInput) {
-      onInput(id, value, isValid);
-    }
-  }, [id, value, isValid, onInput]);
+  const { id, value = "", onInput, validators = [], type, element } = props;
+  const isValid = validate(value, validators);
 
   const changeHandler = (event) => {
-    dispatch({
-      type: "CHANGE",
-      val: event.target.value,
-      validators: validators,
-    });
+    if (onInput) {
+      onInput(id, event.target.value, isValid);
+    }
   };
 
   const touchHandler = () => {
-    dispatch({ type: "TOUCH" });
+    setIsTouched(true);
   };
 
   let inputElement;
-  if (props.element === "select") {
+  if (element === "select") {
     inputElement = (
       <select
-        id={props.id}
+        id={id}
         value={value}
         onChange={changeHandler}
         onBlur={touchHandler}>
@@ -67,11 +36,11 @@ const Input = (props) => {
           ))}
       </select>
     );
-  } else if (props.element === "input" && props.type === "password") {
+  } else if (element === "input" && type === "password") {
     inputElement = (
       <div className="input-password-wrapper">
         <input
-          id={props.id}
+          id={id}
           type={showPassword ? "text" : "password"}
           placeholder={props.placeholder}
           onChange={changeHandler}
@@ -87,10 +56,10 @@ const Input = (props) => {
         </span>
       </div>
     );
-  } else if (props.element === "textarea") {
+  } else if (element === "textarea") {
     inputElement = (
       <textarea
-        id={props.id}
+        id={id}
         rows={props.rows || "3"}
         onChange={changeHandler}
         onBlur={touchHandler}
@@ -101,8 +70,8 @@ const Input = (props) => {
   } else {
     inputElement = (
       <input
-        id={props.id}
-        type={props.type}
+        id={id}
+        type={type}
         placeholder={props.placeholder}
         onChange={changeHandler}
         onBlur={touchHandler}
@@ -116,7 +85,7 @@ const Input = (props) => {
       className={`form-control${
         !isValid && isTouched ? " form-control--invalid" : ""
       }`}>
-      <label htmlFor={props.id}>{props.label}</label>
+      <label htmlFor={id}>{props.label}</label>
       {inputElement}
       {!isValid && isTouched && props.errorText && <p>{props.errorText}</p>}
     </div>

@@ -23,7 +23,7 @@ const NewJob = () => {
         }
       );
       // Reindirizza alla pagina del nuovo job usando l'id reale
-      navigate(`/${auth.userId}/jobs/${responseData.job.id}`);
+      navigate(`/jobs/${auth.userId}`);
     } catch (err) {
       // Gestisci eventuali errori qui
       console.error("Errore creazione job:", err);

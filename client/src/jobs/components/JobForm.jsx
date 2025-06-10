@@ -16,14 +16,12 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
     website: job.website || "",
     company: job.company || "",
     location: job.location || "",
-    status: job.status || "",
+    status: job.status || "applied",
     date: job.date || "",
     salary: job.salary || "",
-    creator: job.creator || "",
   });
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
+  const handleChange = (id, value) => {
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
@@ -44,7 +42,7 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
             label="Application title"
             validators={[VALIDATOR_REQUIRE()]}
             value={formData.title}
-            onChange={handleChange}
+            onInput={handleChange}
             errorText="Please enter a title."
           />
           <Input
@@ -54,7 +52,7 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
             label="Application company"
             validators={[VALIDATOR_REQUIRE()]}
             value={formData.company}
-            onChange={handleChange}
+            onInput={handleChange}
             errorText="Please enter a company."
           />
           <Input
@@ -64,7 +62,7 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
             label="Application location"
             validators={[VALIDATOR_REQUIRE()]}
             value={formData.location}
-            onChange={handleChange}
+            onInput={handleChange}
             errorText="Please enter a location."
           />
           <Input
@@ -72,9 +70,8 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
             element="input"
             type="text"
             label="Application website"
-            validators={[VALIDATOR_REQUIRE()]}
             value={formData.website}
-            onChange={handleChange}
+            onInput={handleChange}
             errorText="Please enter a website."
           />
           <Input
@@ -84,7 +81,7 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
             label="Application date"
             validators={[VALIDATOR_REQUIRE()]}
             value={formData.date}
-            onChange={handleChange}
+            onInput={handleChange}
             errorText="Please enter a date."
           />
         </>
@@ -96,35 +93,39 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
         label="Application description"
         validators={[VALIDATOR_REQUIRE()]}
         value={formData.description}
-        onChange={handleChange}
+        onInput={handleChange}
         errorText="Please enter a description."
       />
       <Input
         id="salary"
         element="input"
-        type="text"
+        type="number"
+        step="0.01"
+        min="0"
         label="Application salary"
         validators={[VALIDATOR_REQUIRE()]}
         value={formData.salary}
-        onChange={handleChange}
+        onInput={handleChange}
         errorText="Please enter a salary."
       />
-      <Input
-        id="status"
-        element="select"
-        label="Application status"
-        validators={[VALIDATOR_REQUIRE()]}
-        value={formData.status}
-        onChange={handleChange}
-        options={[
-          { value: "", label: "Select status" },
-          { value: "applied", label: "Applied" },
-          { value: "interviewing", label: "Interviewing" },
-          { value: "offer", label: "Offer" },
-          { value: "rejected", label: "Rejected" },
-        ]}
-        errorText="Please select a status."
-      />
+      {mode === "edit" && (
+        <Input
+          id="status"
+          element="select"
+          label="Application status"
+          validators={[VALIDATOR_REQUIRE()]}
+          value={formData.status}
+          onInput={handleChange}
+          options={[
+            { value: "", label: "Select status" },
+            { value: "applied", label: "Applied" },
+            { value: "interviewing", label: "Interviewing" },
+            { value: "offer", label: "Offer" },
+            { value: "rejected", label: "Rejected" },
+          ]}
+          errorText="Please select a status."
+        />
+      )}
       <div className="form-btn-wrapper">
         <button type="submit">Save</button>
       </div>
