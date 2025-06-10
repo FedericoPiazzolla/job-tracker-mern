@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./style/Hero.css";
 import HeroImage from "../../assets/images/business-analytics.svg";
 
@@ -17,9 +18,9 @@ const Hero = () => {
                 control from start to finish.
               </span>
             </p>
-            <a href="" className="btn-hero">
+            <NavLink to="/auth" className="btn-hero">
               Get Started
-            </a>
+            </NavLink>
           </div>
 
           <div className="hero-image">

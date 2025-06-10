@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 
 import JobCard from "../components/JobCard";
@@ -15,11 +15,11 @@ const UsersJobs = () => {
   const [sortOrder, setSortOrder] = useState("desc");
   const [statusFilter, setStatusFilter] = useState("all");
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const navigate = useNavigate();
 
   const userId = useParams().userId;
 
   useEffect(() => {
-    console.log("Fetching jobs for userId:", userId);
     const fetchJobs = async () => {
       try {
         const responseData = await sendRequest(
@@ -58,10 +58,6 @@ const UsersJobs = () => {
     }
   });
 
-  console.log("Loaded jobs:", loadedJobs);
-  console.log("Filtered jobs:", filteredJobs);
-  console.log("isLoading:", isLoading, "error:", error);
-
   return (
     <div className="user-jobs">
       <div className="user-jobs__header">
@@ -84,6 +80,14 @@ const UsersJobs = () => {
                 setStatusFilter={setStatusFilter}
               />
             </li>
+            {filteredJobs.map((job) => (
+              <JobCard
+                key={job.id}
+                {...job}
+                onDeleteJob={jobDeletedHandler}
+                onClick={() => navigate(`/${userId}/jobs/${job.id}`)}
+              />
+            ))}
           </>
         ) : (
           <li className="user-jobs__empty">
@@ -96,9 +100,6 @@ const UsersJobs = () => {
         <div className="center">
           <LoadingSpinner asOverlay />
         </div>
-      )}
-      {!isLoading && loadedJobs && (
-        <JobCard items={loadedJobs} onDeleteJob={jobDeletedHandler} />
       )}
       <ErrorModal error={error} onClear={clearError} />
     </div>

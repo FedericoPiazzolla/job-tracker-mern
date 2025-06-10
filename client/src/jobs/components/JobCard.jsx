@@ -14,7 +14,7 @@ const JobCard = (props) => {
 
   const statusKey = props.status?.toLowerCase();
   return (
-    <li key={props.id} className="user-jobs__item">
+    <li key={props.id} className="user-jobs__item" onClick={props.onClick}>
       <h3 className="user-jobs__item-title">{props.title}</h3>
       <p className="user-jobs__item-location">{props.location}</p>
       <p className={`user-jobs__item-status ${statusClass[statusKey] || ""}`}>
