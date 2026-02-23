@@ -18,41 +18,41 @@ Durante la ricerca di lavoro è facile perdere informazioni tra email, fogli spa
 
 - Autenticazione utenti con `signup` / `login`
 - Gestione sessione lato client con token JWT
-- CRUD candidature:
+- CRUD candidature
 - creazione candidatura
 - visualizzazione dettaglio candidatura
 - modifica candidatura
 - eliminazione candidatura con modal di conferma
 - Filtri e ordinamento nell’elenco candidature
 - Feedback UX con toast (create/update/delete)
+- Dashboard statistiche (`/stats`) con grafico e percentuali per stato
 - Interfaccia responsive (desktop/mobile)
 
 ## Stack tecnologico
 
-### Tecnologie usate (in evidenza)
+### Frontend
 
-- **Frontend**
-- **React 19** per UI component-based
-- **React Router** per routing SPA
-- **Vite** per dev/build veloci
-- **CSS custom** per UI minimale/elegante
-- **React Transition Group** per animazioni/transizioni
+- `React 19` + `React DOM 19`
+- `Vite` (dev server + build)
+- `React Router DOM` (routing SPA)
+- `React Transition Group` (animazioni/transizioni)
+- `CSS` custom (no framework UI)
+- Hook custom: `useAuth`, `useHttpClient`, `useForm`
 
-- **Backend**
-- **Node.js + Express** per API REST
-- **MongoDB + Mongoose** per persistenza e modelli dati
-- **express-validator** per validazione input
-- **JWT (`jsonwebtoken`)** per autenticazione stateless
-- **bcryptjs** per hashing password
-- **dotenv** per gestione variabili ambiente
-- **body-parser** per parsing payload JSON
+### Backend
 
-### Librerie/strumenti chiave
+- `Node.js` + `Express`
+- `MongoDB` + `Mongoose`
+- `express-validator` (validazione input)
+- `jsonwebtoken` (JWT auth)
+- `bcryptjs` (hash password)
+- `multer` (upload middleware, predisposto)
 
-- **Auth:** JWT + middleware `check-auth`
-- **HTTP client custom:** `useHttpClient` (loading/error/abort handling)
-- **Form handling custom:** `useForm` + validators
-- **UX:** modal di conferma, toast di feedback, spinner di caricamento
+### Tooling e qualità codice
+
+- `ESLint` (client)
+- `nodemon` (sviluppo backend)
+- `npm` scripts separati per `client` e `server`
 
 ## Architettura
 
@@ -70,6 +70,7 @@ Durante la ricerca di lavoro è facile perdere informazioni tra email, fogli spa
 - `/jobs` elenco candidature utente autenticato
 - `/jobs/new` creazione candidatura
 - `/jobs/:jobId` dettaglio/modifica candidatura
+- `/stats` dashboard statistiche candidature
 
 ### API Backend
 
@@ -166,6 +167,16 @@ job-tracker-mern/
     middleware/
     models/
     routes/
+
+```
+
+| Sezione         | Anteprima                                                       |
+| --------------- | --------------------------------------------------------------- |
+| Landing Page    | ![Landing Page](/client/src/assets/images/landingPage.png)      |
+| My Applications | ![My Applications](/client/src/assets/images/myApplciation.png) |
+| Dettaglio Job   | ![Dettaglio Job](/client/src/assets/images/showJob.png)         |
+| Stats           | ![Stats](/client/src/assets/images/stats.png)                   |
+
 ```
 
 ## Scelte implementative rilevanti
@@ -190,3 +201,4 @@ Questo progetto dimostra competenze pratiche su:
 - progettazione API REST e integrazione frontend
 - gestione autenticazione/autorizzazione
 - qualità UX/UI e refactoring incrementale
+```
