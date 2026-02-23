@@ -105,6 +105,10 @@ const ShowUserJob = () => {
     }
   };
 
+  const backToJobsHandler = () => {
+    navigate("/jobs");
+  };
+
   if (isLoading && !job) {
     return (
       <div className="center">
@@ -159,6 +163,11 @@ const ShowUserJob = () => {
             </ul>
 
             <div className="userJob-actions">
+              <button
+                className="user-job-btn userJob-back-btn"
+                onClick={backToJobsHandler}>
+                Back to My Applications
+              </button>
               <button
                 className="user-job-btn userJob-edit-btn"
                 onClick={() => setIsEditing(true)}>

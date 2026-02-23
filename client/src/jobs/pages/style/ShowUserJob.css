@@ -177,6 +177,17 @@
   background-color: rgba(183, 72, 63, 0.08);
 }
 
+.userJob-back-btn {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  margin-right: auto;
+}
+
+.userJob-back-btn:hover {
+  background-color: var(--background-color);
+}
+
 .userJob-status.status-applied {
   background: #e3f2fd;
   color: #1976d2;
@@ -219,5 +230,9 @@
 
   .user-job-btn {
     width: 100%;
+  }
+
+  .userJob-back-btn {
+    margin-right: 0;
   }
 }

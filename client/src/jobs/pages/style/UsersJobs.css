@@ -119,7 +119,7 @@
 .user-jobs__item-link {
   text-decoration: none;
   color: inherit;
-  background-color: var(--surface-color);
+  background-color: transparent;
   border-radius: 0 0 0.5rem 0.5rem;
   display: block;
   transition:
@@ -128,7 +128,7 @@
 }
 
 .user-jobs__item-link:hover {
-  background-color: var(--soft-highlight);
+  background-color: transparent;
   z-index: 1;
 }
 
@@ -232,6 +232,7 @@
     max-width: none;
     margin: 0;
   }
+  
   .user-jobs__list-title {
     flex-direction: row;
     align-items: center;
@@ -240,7 +241,7 @@
     padding: 1rem 2rem;
   }
   .user-jobs__item-link:hover {
-    transform: scaleX(1.01);
+    transform: none;
   }
   .user-jobs__filters {
     gap: 1rem;

@@ -15,6 +15,7 @@ const LandingPage = React.lazy(() => import("./jobs/pages/LandingPage"));
 const UsersJobs = React.lazy(() => import("./jobs/pages/UsersJobs"));
 const ShowUserJob = React.lazy(() => import("./jobs/pages/ShowUserJob"));
 const NewJob = React.lazy(() => import("./jobs/pages/NewJob"));
+const Stats = React.lazy(() => import("./jobs/pages/Stats"));
 const Auth = React.lazy(() => import("./user/pages/Auth"));
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/jobs" element={<UsersJobs />} />
         <Route path="/jobs/:jobId" element={<ShowUserJob />} />
         <Route path="/jobs/new" element={<NewJob />} />
+        <Route path="/stats" element={<Stats />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </>
     );

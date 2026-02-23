@@ -19,6 +19,11 @@ const NavLinks = () => {
           <NavLink to="/jobs">My Applications</NavLink>
         </li>
       )}
+      {auth.isLoggedIn && (
+        <li>
+          <NavLink to="/stats">Stats</NavLink>
+        </li>
+      )}
       {!auth.isLoggedIn && (
         <li>
           <NavLink to="/auth">Authenticate</NavLink>

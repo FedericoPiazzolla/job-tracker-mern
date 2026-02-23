@@ -1,4 +1,28 @@
-require("dotenv").config();
+const fs = require("fs");
+const path = require("path");
+
+const loadEnvFile = () => {
+  const envPath = path.join(__dirname, ".env");
+  if (!fs.existsSync(envPath)) return;
+
+  const file = fs.readFileSync(envPath, "utf8");
+  const lines = file.split("\n");
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+
+    const separatorIndex = trimmed.indexOf("=");
+    if (separatorIndex < 0) continue;
+
+    const key = trimmed.slice(0, separatorIndex).trim();
+    const value = trimmed.slice(separatorIndex + 1).trim();
+    if (!key || process.env[key] !== undefined) continue;
+    process.env[key] = value;
+  }
+};
+
+loadEnvFile();
 
 const mongoose = require("mongoose");
 const express = require("express");
