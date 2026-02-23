@@ -15,3 +15,8 @@ build/
 # Editor folders
 .vscode/
 .idea/
+
+# Environment files
+.env
+*.env
+!.env.example

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -7,6 +9,12 @@ const jobsRoutes = require("./routes/jobs-routes");
 const HttpError = require("./models/http-error");
 
 const app = express();
+const PORT = process.env.PORT || 5010;
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) {
+  throw new Error("Missing MONGODB_URI environment variable.");
+}
 
 app.use(bodyParser.json());
 
@@ -38,11 +46,9 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(
-    "MONGODB_URI_REMOVED"
-  )
+  .connect(MONGODB_URI)
   .then(() => {
-    app.listen(5010);
+    app.listen(PORT);
   })
   .catch((err) => {
     console.error(err);

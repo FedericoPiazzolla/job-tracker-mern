@@ -7,7 +7,6 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import Modal from "../../shared/components/UIElements/Modal";
 import Button from "../../shared/components/FormElements/Button";
-import Toast from "../../shared/components/UIElements/Toast";
 import "./style/ShowUserJob.css";
 
 const statusClass = {
@@ -22,7 +21,6 @@ const ShowUserJob = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
   const [job, setJob] = useState(null);
   const { jobId } = useParams();
   const navigate = useNavigate();
@@ -41,12 +39,6 @@ const ShowUserJob = () => {
 
     fetchJob();
   }, [jobId, sendRequest]);
-
-  useEffect(() => {
-    if (!toastMessage) return;
-    const timer = setTimeout(() => setToastMessage(""), 2200);
-    return () => clearTimeout(timer);
-  }, [toastMessage]);
 
   const handleSave = async (updatedFields) => {
     if (!job) return;
@@ -75,8 +67,9 @@ const ShowUserJob = () => {
       );
       setJob(responseData.job);
       setIsEditing(false);
-      setToastMessage("Application updated successfully.");
-      navigate(`/jobs/${jobId}`, { replace: true });
+      navigate("/jobs", {
+        state: { toast: "Application updated successfully." },
+      });
     } catch (err) {
       console.error("Update job failed:", err);
     }
@@ -130,7 +123,6 @@ const ShowUserJob = () => {
 
   return (
     <div className="userJojb-container">
-      <Toast message={toastMessage} />
       <div className="userJob-list">
         {isEditing ? (
           <JobForm job={job} mode="edit" onSave={handleSave} />
