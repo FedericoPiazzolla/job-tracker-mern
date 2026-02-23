@@ -1,2 +1,0 @@
-mongodb+srv://fede:fede1234@cluster0.v5ybhz0.mongodb.net/job-trackers?retryWrites=true&w=majority&appName=Cluster0==>MONGODB_URI_REMOVED
-supersecret_dont_share==>JWT_KEY_REMOVED
