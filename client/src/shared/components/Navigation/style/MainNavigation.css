@@ -14,18 +14,18 @@
   display: block;
   width: 3rem;
   height: 2.5px;
-  background: var(--primary-color);
+  background: var(--surface-color);
 }
 
 
 .main-navigation__title {
-  color: var(--primary-color);
+  color: var(--surface-color);
   letter-spacing: 0.02em;
 }
 
 .main-navigation__title a {
   text-decoration: none;
-  color: var(--primary-color);
+  color: var(--surface-color);
 }
 
 .main-navigation__header-nav {

@@ -9,29 +9,34 @@ import Input from "../../shared/components/FormElements/Input";
 import "./style/JobForm.css";
 
 const JobForm = ({ job = {}, onSave, mode = "create" }) => {
-  const initialInputs =
-    mode === "create"
-      ? {
-          title: { value: job.title || "", isValid: !!job.title },
-          company: { value: job.company || "", isValid: !!job.company },
-          location: { value: job.location || "", isValid: !!job.location },
-          website: { value: job.website || "", isValid: true },
-          date: { value: job.date || "", isValid: !!job.date },
-          description: {
-            value: job.description || "",
-            isValid: !!job.description,
-          },
-          salary: { value: job.salary || "", isValid: !!job.salary },
-          status: { value: job.status || "applied", isValid: true },
-        }
-      : {
-          description: {
-            value: job.description || "",
-            isValid: !!job.description,
-          },
-          salary: { value: job.salary || "", isValid: !!job.salary },
-          status: { value: job.status || "", isValid: !!job.status },
-        };
+  const normalizeStatusValue = (status) => {
+    if (status === "interview") return "interviewing";
+    return status || "";
+  };
+
+  const toDateInputValue = (value) => {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toISOString().slice(0, 10);
+  };
+
+  const initialInputs = {
+    title: { value: job.title || "", isValid: !!job.title },
+    company: { value: job.company || "", isValid: !!job.company },
+    location: { value: job.location || "", isValid: !!job.location },
+    website: { value: job.website || "", isValid: true },
+    date: { value: toDateInputValue(job.date), isValid: !!job.date },
+    description: {
+      value: job.description || "",
+      isValid: !!job.description,
+    },
+    salary: { value: job.salary || "", isValid: !!job.salary },
+    status: {
+      value: normalizeStatusValue(job.status) || (mode === "create" ? "applied" : ""),
+      isValid: !!(normalizeStatusValue(job.status) || mode === "create"),
+    },
+  };
 
   const initialFormValidity = Object.values(initialInputs).every(
     (input) => input.isValid
@@ -59,7 +64,7 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
   return (
     <form className="job-form" onSubmit={handleSubmit}>
       {mode === "edit" && <h2>{job.title}</h2>}
-      {mode === "create" && (
+      {(mode === "create" || mode === "edit") && (
         <>
           <Input
             id="title"

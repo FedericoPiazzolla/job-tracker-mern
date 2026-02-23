@@ -8,7 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--surface-color);
+  background-color: transparent;
 }
 
 .nav-links li {
@@ -17,7 +17,7 @@
 
 .nav-links a {
   border: 1px solid transparent;
-  color: var(--text-color);
+  color: var(--surface-color);
   text-decoration: none;
   padding: 0.55rem 0.7rem;
   border-radius: 8px;
@@ -27,9 +27,9 @@
 .nav-links a:hover,
 .nav-links a:active,
 .nav-links a.active {
-  background: var(--soft-highlight);
-  color: var(--primary-color);
-  border-color: var(--border-color);
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--surface-color);
+  border-color: rgba(255, 255, 255, 0.24);
 }
 
 .nav-links button {
@@ -62,15 +62,15 @@
   }
 
   .nav-links a {
-    color: var(--text-color);
+    color: var(--surface-color);
     text-decoration: none;
   }
 
   .nav-links a:hover,
   .nav-links a:active,
   .nav-links a.active {
-    background: var(--soft-highlight);
-    color: var(--primary-color);
-    border-color: var(--border-color);
+    background: rgba(255, 255, 255, 0.16);
+    color: var(--surface-color);
+    border-color: rgba(255, 255, 255, 0.24);
   }
 }

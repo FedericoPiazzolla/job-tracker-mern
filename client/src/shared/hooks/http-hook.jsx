@@ -20,14 +20,25 @@ export const useHttpClient = () => {
           signal: httpAbortCtrl.signal,
         });
 
-        const responseData = await response.json();
+        const contentType = response.headers.get("content-type") || "";
+        let responseData = null;
+
+        if (contentType.includes("application/json")) {
+          responseData = await response.json();
+        } else {
+          const text = await response.text();
+          responseData = text ? { message: text } : {};
+        }
 
         activeHttpRequests.current = activeHttpRequests.current.filter(
           (reqCtrl) => reqCtrl !== httpAbortCtrl
         );
 
         if (!response.ok) {
-          throw new Error(responseData.message);
+          const errorMessage =
+            responseData?.message ||
+            `Request failed with status ${response.status}`;
+          throw new Error(errorMessage);
         }
 
         setIsLoading(false);

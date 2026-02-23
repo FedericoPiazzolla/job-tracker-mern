@@ -1,14 +1,21 @@
 .how-to-use {
   background: var(--background-color);
   color: var(--primary-color);
-  padding: 4rem 0 3rem 0;
+  padding: 1rem 0 3.5rem 0;
   text-align: center;
 }
 
+.how-to-use .container {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 2rem 1.2rem 2.2rem;
+  box-shadow: 0 10px 24px rgba(30, 46, 53, 0.08);
+}
 
 .how-to-use h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
   font-weight: 700;
 }
 
@@ -23,6 +30,7 @@
   font-size: 1.1rem;
   margin-bottom: 1.2rem;
   line-height: 1.6;
+  color: var(--text-color);
 }
 
 .how-to-use ul {
@@ -33,4 +41,19 @@
 
 .how-to-use strong {
   color: var(--secondary-color);
+}
+
+@media (min-width: 768px) {
+  .how-to-use {
+    padding: 1rem 0 4rem 0;
+  }
+
+  .how-to-use .container {
+    padding: 2.8rem 2.2rem 3rem;
+  }
+
+  .how-to-use h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
 }

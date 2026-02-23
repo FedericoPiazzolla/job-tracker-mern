@@ -29,6 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
+  console.error("Express error middleware:", error);
   if (res.headersSent) {
     return next(error);
   }
@@ -44,5 +45,5 @@ mongoose
     app.listen(5010);
   })
   .catch((err) => {
-    console.log(err);
+    console.error(err);
   });

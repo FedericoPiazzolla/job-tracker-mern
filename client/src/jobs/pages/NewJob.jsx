@@ -21,7 +21,9 @@ const NewJob = () => {
           Authorization: "Bearer " + auth.token,
         }
       );
-      navigate(`/${auth.userId}/jobs`);
+      navigate("/jobs", {
+        state: { toast: "Application created successfully." },
+      });
     } catch (err) {
       console.error("Errore creazione job:", err);
     }

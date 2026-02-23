@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useParams, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 
 import JobCard from "../components/JobCard";
 import JobsFilters from "../components/JobsFilters";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import Toast from "../../shared/components/UIElements/Toast";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { AuthContext } from "../../shared/context/auth-context";
 
 import "./style/UsersJobs.css";
 
@@ -14,20 +16,28 @@ const UsersJobs = () => {
   const [loadedJobs, setLoadedJobs] = useState();
   const [sortOrder, setSortOrder] = useState("desc");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [toastMessage, setToastMessage] = useState("");
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const navigate = useNavigate();
-
-  const userId = useParams().userId;
+  const location = useLocation();
+  const auth = useContext(AuthContext);
+  const userId = auth.userId;
 
   useEffect(() => {
+    if (!userId) {
+      return;
+    }
+
     const fetchJobs = async () => {
       try {
         const responseData = await sendRequest(
           `http://localhost:5010/api/jobs/user/${userId}`
         );
-        console.log("Response data from backend:", responseData);
         setLoadedJobs(responseData.jobs);
       } catch (err) {
+        if (err.name === "AbortError") {
+          return;
+        }
         console.error("Error fetching jobs:", err);
       }
     };
@@ -35,12 +45,18 @@ const UsersJobs = () => {
     fetchJobs();
   }, [sendRequest, userId]);
 
-  const jobDeletedHandler = (deletedJobId) => {
-    console.log("Deleting job with id:", deletedJobId);
-    setLoadedJobs((prevJobs) =>
-      prevJobs.filter((job) => job.id !== deletedJobId)
-    );
-  };
+  useEffect(() => {
+    if (!location.state?.toast) return;
+
+    setToastMessage(location.state.toast);
+    navigate(location.pathname, { replace: true, state: {} });
+  }, [location.pathname, location.state, navigate]);
+
+  useEffect(() => {
+    if (!toastMessage) return;
+    const timer = setTimeout(() => setToastMessage(""), 2400);
+    return () => clearTimeout(timer);
+  }, [toastMessage]);
 
   const hasApplications = loadedJobs && loadedJobs.length > 0;
 
@@ -60,8 +76,9 @@ const UsersJobs = () => {
 
   return (
     <div className="user-jobs">
+      <Toast message={toastMessage} />
       <div className="user-jobs__header">
-        <NavLink to={`/jobs/${userId}/new`} className="user-jobs__add-button">
+        <NavLink to="/jobs/new" className="user-jobs__add-button">
           Add Application
           <span>
             <FaPlus />
@@ -84,8 +101,7 @@ const UsersJobs = () => {
               <JobCard
                 key={job.id}
                 {...job}
-                onDeleteJob={jobDeletedHandler}
-                onClick={() => navigate(`/${userId}/jobs/${job.id}`)}
+                to={`/jobs/${job.id}`}
               />
             ))}
           </>

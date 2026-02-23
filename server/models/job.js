@@ -11,7 +11,7 @@ const JobSchema = new Schema({
   status: {
     type: String,
     required: true,
-    enum: ["applied", "interview", "offer", "rejected"],
+    enum: ["applied", "interviewing", "offer", "rejected"],
   },
   date: { type: Date, required: true },
   salary: { type: String }, // può essere un range o un valore singolo

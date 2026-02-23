@@ -8,9 +8,10 @@
 }
 
 .info-card {
-  background: var(--background-color);
+  background: var(--soft-highlight);
+  border: 1px solid var(--border-color);
   border-radius: 1rem;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 16px rgba(30, 46, 53, 0.06);
   padding: 2rem 1.5rem;
   min-width: 220px;
   max-width: 320px;
@@ -39,7 +40,7 @@
 }
 
 .info-card p {
-  color: #333;
+  color: var(--muted-text-color);
   font-size: 1rem;
 }
 

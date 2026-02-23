@@ -3,7 +3,6 @@ const { check } = require("express-validator");
 
 const jobsController = require("../controllers/jobs-controller");
 const checkAuth = require("../middleware/check-auth");
-console.log("jobsController:", jobsController);
 
 const router = express.Router();
 

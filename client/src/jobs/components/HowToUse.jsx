@@ -12,14 +12,15 @@ const HowToUse = () => {
             have an account.
           </li>
           <li>
-            Go to <strong>My Jobs</strong> from the navigation menu.
+            Go to <strong>My Applications</strong> from the navigation menu.
           </li>
           <li>
             Click the <strong> + </strong> button if you haven't added any jobs
             yet.
           </li>
           <li>
-            On the My Jobs page, you'll find all the information you need:
+            On the My Applications page, you'll find all the information you
+            need:
             <ul>
               <li>Your job applications</li>
               <li>Statistics about your applications</li>

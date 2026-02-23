@@ -3,7 +3,6 @@ const HttpError = require("../models/http-error");
 
 const Job = require("../models/job");
 const User = require("../models/user");
-const mongoose = require("mongoose");
 
 const getJobById = async (req, res, next) => {
   const jobId = req.params.jid;
@@ -164,43 +163,42 @@ const updateJobById = async (req, res, next) => {
 
 const deleteJob = async (req, res, next) => {
   const jobId = req.params.jid;
+  if (!jobId || !jobId.match(/^[0-9a-fA-F]{24}$/)) {
+    return next(new HttpError("Invalid job id.", 400));
+  }
+
   let job;
   try {
-    job = await Job.findById(jobId).populate("creator");
+    job = await Job.findById(jobId).select("creator");
   } catch (err) {
-    const error = new HttpError(
-      "Something went wrong, could not delete job.",
-      500
-    );
-    return next(error);
+    console.error("Delete lookup error:", err);
+    return next(new HttpError("Delete failed while loading job.", 500));
   }
 
   if (!job) {
-    const error = new HttpError("Could not find job for this id.", 404);
-    return next(error);
+    return next(new HttpError("Could not find job for this id.", 404));
   }
 
-  if (job.creator.id !== req.userData.userId) {
-    const error = new HttpError("You are not allowed to delete this job.", 401);
-    return next(error);
+  if (job.creator.toString() !== req.userData.userId) {
+    return next(new HttpError("You are not allowed to delete this job.", 401));
   }
 
   try {
-    const sess = await mongoose.startSession();
-    sess.startTransaction();
-    await job.remove({ session: sess });
-    job.creator.jobs.pull(job);
-    await job.creator.save({ session: sess });
-    await sess.commitTransaction();
+    await Job.deleteOne({ _id: jobId });
   } catch (err) {
-    const error = new HttpError(
-      "Something went wrong, could not delete job.",
-      500
-    );
-    return next(error);
+    console.error("Delete execution error:", err);
+    return next(new HttpError("Delete failed while removing job.", 500));
   }
 
-  res.status(200).json({ message: "Deleted job." });
+  try {
+    await User.findByIdAndUpdate(req.userData.userId, {
+      $pull: { jobs: jobId },
+    });
+  } catch (pullErr) {
+    console.error("User cleanup after delete failed:", pullErr);
+  }
+
+  return res.status(200).json({ message: "Deleted job." });
 };
 exports.getJobById = getJobById;
 exports.getJobsByUserId = getJobsByUserId;

@@ -1,12 +1,7 @@
 .hero {
-  background: linear-gradient(
-      140deg,
-      rgba(198, 169, 105, 0.09),
-      rgba(77, 111, 121, 0.06)
-    ),
-    var(--surface-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   padding: 6rem 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: none;
 }
 
 .hero h1 {
@@ -23,7 +18,7 @@
 
 .hero-content {
   width: 100%;
-  color: var(--text-color);
+  color: var(--surface-color);
   text-align: center;
 }
 
@@ -38,7 +33,7 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  color: var(--muted-text-color);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .hero-description {
@@ -48,9 +43,9 @@
 
 .btn-hero {
   text-decoration: none;
-  color: var(--surface-color);
-  background-color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  background-color: var(--surface-color);
+  border: 1px solid var(--surface-color);
   padding: 0.5rem 1.2rem;
   border-radius: 5px;
   font-size: 1rem;
@@ -64,9 +59,9 @@
 }
 
 .btn-hero:hover {
-  color: var(--primary-color);
-  background-color: var(--surface-color);
-  border: 1px solid var(--primary-color);
+  color: var(--surface-color);
+  background-color: transparent;
+  border: 1px solid var(--surface-color);
 }
 
 .hero-image {

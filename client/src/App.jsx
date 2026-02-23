@@ -26,9 +26,9 @@ const App = () => {
     routes = (
       <>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/:userId/jobs" element={<UsersJobs />} />
-        <Route path="/:userId/jobs/:jobId" element={<ShowUserJob />} />
-        <Route path="/jobs/:userId/new" element={<NewJob />} />
+        <Route path="/jobs" element={<UsersJobs />} />
+        <Route path="/jobs/:jobId" element={<ShowUserJob />} />
+        <Route path="/jobs/new" element={<NewJob />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </>
     );
