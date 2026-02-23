@@ -2,9 +2,9 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centra verticalmente */
-  align-items: center;     /* centra orizzontalmente */
-  background: var(background-color);
+  justify-content: center;
+  align-items: center;
+  background: var(--background-color);
   padding: 1.5rem 0.5rem;
 }
 

@@ -12,8 +12,7 @@ const NewJob = () => {
 
   const handleSave = async (newJob) => {
     try {
-      // Invia la richiesta POST al backend
-      const responseData = await sendRequest(
+      await sendRequest(
         `http://localhost:5010/api/jobs`,
         "POST",
         JSON.stringify(newJob),
@@ -22,13 +21,10 @@ const NewJob = () => {
           Authorization: "Bearer " + auth.token,
         }
       );
-      // Reindirizza alla pagina del nuovo job usando l'id reale
-      navigate(`/jobs/${auth.userId}`);
+      navigate(`/${auth.userId}/jobs`);
     } catch (err) {
-      // Gestisci eventuali errori qui
       console.error("Errore creazione job:", err);
     }
-    console.log("Dati inviati al backend:", newJob);
   };
 
   return (

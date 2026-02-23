@@ -35,7 +35,9 @@ const getJobsByUserId = async (req, res, next) => {
   try {
     userWithJobs = await User.findById(userId).populate("jobs");
   } catch (err) {
-    return next(new HttpError("Fetching jobs failed, please try again later.", 500));
+    return next(
+      new HttpError("Fetching jobs failed, please try again later.", 500)
+    );
   }
   if (!userWithJobs) {
     return next(new HttpError("Could not find user for the provided id.", 404));

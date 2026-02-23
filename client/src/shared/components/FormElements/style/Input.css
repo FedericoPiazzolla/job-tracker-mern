@@ -18,8 +18,8 @@
 .form-control textarea {
   width: 100%;
   font: inherit;
-  border: 1px solid var(--primary-color);
-  background: var(--background-color);
+  border: 1px solid rgba(31, 75, 63, 0.35);
+  background: var(--surface-color);
   padding: 0.4rem 0.8rem;
   border-radius: 5px;
 }
@@ -27,15 +27,16 @@
 .form-control input:focus,
 .form-control textarea:focus {
   outline: none;
-  background: #ebebeb;
-  border-color: var(--primary-color);
+  background: var(--surface-color);
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(47, 109, 93, 0.2);
 }
 
 .form-control select {
   width: 100%;
   font: inherit;
-  border: 1px solid var(--primary-color);
-  background: var(--background-color);
+  border: 1px solid rgba(31, 75, 63, 0.35);
+  background: var(--surface-color);
   padding: 0.4rem 0.8rem;
   border-radius: 5px;
   margin-bottom: 0.5rem;
@@ -48,8 +49,9 @@
 
 .form-control select:focus {
   outline: none;
-  background: var(--background-color);
-  border-color: var(--primary-color);
+  background: var(--surface-color);
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(47, 109, 93, 0.2);
 }
 
 .form-control--invalid label,

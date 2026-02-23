@@ -3,15 +3,16 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: var(--primary-color);
+  background: var(--background-color);
   padding: 1rem 0;
 }
 
 .userJob-list {
-  background-color: var(--background-color);
+  background-color: var(--surface-color);
   padding: 1.2rem 0.5rem;
   border-radius: 1.2rem;
-  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.12), 0 1.5px 4px 0 rgba(0,0,0,0.10);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 12px 28px rgba(30, 46, 53, 0.1);
   width: 100%;
   max-width: 98vw;
   min-width: unset;
@@ -28,7 +29,7 @@
   text-align: center;
   font-size: 1.25rem;
   font-weight: 700;
-  background: var(--background-color);
+  background: var(--surface-color);
   color: var(--primary-color);
   padding: 0.7rem 1.2rem;
   border-radius: 1.2rem;
@@ -57,7 +58,8 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: .2rem;
-  background-color: var(--background-color);
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   font-size: 0.95rem;
 }
@@ -82,7 +84,7 @@
   width: 100%;
   padding: 0.7rem 1rem;
   background-color: var(--primary-color);
-  color: var(--background-color);
+  color: var(--surface-color);
   border: none;
   border-radius: 0.5rem;
   font-size: 1rem;
@@ -93,8 +95,8 @@
 }
 
 .userJob-delete-btn {
-  background-color: red;
-  color: var(--background-color);
+  background-color: var(--danger-color);
+  color: var(--surface-color);
 }
 
 .userJob-status {

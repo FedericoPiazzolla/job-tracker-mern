@@ -58,7 +58,7 @@ const Auth = () => {
           }),
           { "Content-Type": "application/json" }
         );
-        auth.login(responseData.userId, responseData.token);
+        auth.login(responseData.userId || responseData.user, responseData.token);
       } catch (err) {}
     } else {
       try {
@@ -72,7 +72,7 @@ const Auth = () => {
           }),
           { "Content-Type": "application/json" }
         );
-        auth.login(responseData.userId, responseData.token);
+        auth.login(responseData.userId || responseData.user, responseData.token);
       } catch (err) {}
     }
   };
@@ -125,7 +125,7 @@ const Auth = () => {
             className="auth-toggle-link"
             onClick={(e) => {
               e.preventDefault();
-              setIsLoginMode((prev) => !prev);
+              switchModeHandler();
             }}>
             {isLoginMode ? "Sign up here." : "Login here."}
           </a>

@@ -6,11 +6,12 @@
   position: fixed;
   flex-direction: row-reverse;
   justify-content: space-between;
-  box-shadow: 0 2px 4px rgba(238, 244, 237, 0.2);
+  box-shadow: 0 8px 20px rgba(28, 43, 50, 0.08);
   top: 0;
   left: 0;
-  background: var(--primary-color);
-  color: var(--background-color);
+  background: var(--surface-color);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
   padding: 0 1rem;
   z-index: 5;
 }

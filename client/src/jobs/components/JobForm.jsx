@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-
+import React from "react";
+import useForm from "../../shared/hooks/form-hook";
 import {
-  VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
@@ -10,29 +9,56 @@ import Input from "../../shared/components/FormElements/Input";
 import "./style/JobForm.css";
 
 const JobForm = ({ job = {}, onSave, mode = "create" }) => {
-  const [formData, setFormData] = useState({
-    title: job.title || "",
-    description: job.description || "",
-    website: job.website || "",
-    company: job.company || "",
-    location: job.location || "",
-    status: job.status || "applied",
-    date: job.date || "",
-    salary: job.salary || "",
-  });
+  const initialInputs =
+    mode === "create"
+      ? {
+          title: { value: job.title || "", isValid: !!job.title },
+          company: { value: job.company || "", isValid: !!job.company },
+          location: { value: job.location || "", isValid: !!job.location },
+          website: { value: job.website || "", isValid: true },
+          date: { value: job.date || "", isValid: !!job.date },
+          description: {
+            value: job.description || "",
+            isValid: !!job.description,
+          },
+          salary: { value: job.salary || "", isValid: !!job.salary },
+          status: { value: job.status || "applied", isValid: true },
+        }
+      : {
+          description: {
+            value: job.description || "",
+            isValid: !!job.description,
+          },
+          salary: { value: job.salary || "", isValid: !!job.salary },
+          status: { value: job.status || "", isValid: !!job.status },
+        };
 
-  const handleChange = (id, value) => {
-    setFormData((prev) => ({ ...prev, [id]: value }));
-  };
+  const initialFormValidity = Object.values(initialInputs).every(
+    (input) => input.isValid
+  );
+
+  const [formState, inputHandler] = useForm(
+    initialInputs,
+    initialFormValidity
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (onSave) onSave(formData);
+    if (!formState.isValid) {
+      return;
+    }
+
+    const payload = Object.keys(formState.inputs).reduce((acc, key) => {
+      acc[key] = formState.inputs[key].value;
+      return acc;
+    }, {});
+
+    if (onSave) onSave(payload);
   };
 
   return (
     <form className="job-form" onSubmit={handleSubmit}>
-      {mode === "edit" && <h2>{formData.title}</h2>}
+      {mode === "edit" && <h2>{job.title}</h2>}
       {mode === "create" && (
         <>
           <Input
@@ -41,8 +67,8 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
             type="text"
             label="Application title"
             validators={[VALIDATOR_REQUIRE()]}
-            value={formData.title}
-            onInput={handleChange}
+            value={formState.inputs.title.value}
+            onInput={inputHandler}
             errorText="Please enter a title."
           />
           <Input
@@ -51,8 +77,8 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
             type="text"
             label="Application company"
             validators={[VALIDATOR_REQUIRE()]}
-            value={formData.company}
-            onInput={handleChange}
+            value={formState.inputs.company.value}
+            onInput={inputHandler}
             errorText="Please enter a company."
           />
           <Input
@@ -61,8 +87,8 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
             type="text"
             label="Application location"
             validators={[VALIDATOR_REQUIRE()]}
-            value={formData.location}
-            onInput={handleChange}
+            value={formState.inputs.location.value}
+            onInput={inputHandler}
             errorText="Please enter a location."
           />
           <Input
@@ -70,8 +96,8 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
             element="input"
             type="text"
             label="Application website"
-            value={formData.website}
-            onInput={handleChange}
+            value={formState.inputs.website.value}
+            onInput={inputHandler}
             errorText="Please enter a website."
           />
           <Input
@@ -80,8 +106,8 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
             type="date"
             label="Application date"
             validators={[VALIDATOR_REQUIRE()]}
-            value={formData.date}
-            onInput={handleChange}
+            value={formState.inputs.date.value}
+            onInput={inputHandler}
             errorText="Please enter a date."
           />
         </>
@@ -91,10 +117,10 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
         type="text"
         element="textarea"
         label="Application description"
-        validators={[VALIDATOR_REQUIRE()]}
-        value={formData.description}
-        onInput={handleChange}
-        errorText="Please enter a description."
+        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
+        value={formState.inputs.description.value}
+        onInput={inputHandler}
+        errorText="Please enter a description of at least 5 characters."
       />
       <Input
         id="salary"
@@ -104,8 +130,8 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
         min="0"
         label="Application salary"
         validators={[VALIDATOR_REQUIRE()]}
-        value={formData.salary}
-        onInput={handleChange}
+        value={formState.inputs.salary.value}
+        onInput={inputHandler}
         errorText="Please enter a salary."
       />
       {mode === "edit" && (
@@ -114,8 +140,8 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
           element="select"
           label="Application status"
           validators={[VALIDATOR_REQUIRE()]}
-          value={formData.status}
-          onInput={handleChange}
+          value={formState.inputs.status.value}
+          onInput={inputHandler}
           options={[
             { value: "", label: "Select status" },
             { value: "applied", label: "Applied" },
@@ -127,7 +153,9 @@ const JobForm = ({ job = {}, onSave, mode = "create" }) => {
         />
       )}
       <div className="form-btn-wrapper">
-        <button type="submit">Save</button>
+        <button type="submit" disabled={!formState.isValid}>
+          Save
+        </button>
       </div>
     </form>
   );

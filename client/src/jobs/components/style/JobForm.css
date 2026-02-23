@@ -1,7 +1,7 @@
 .job-form {
   width: 100%;
   max-width: 600px;
-  background-color: var(--background-color);
+  background-color: var(--surface-color);
   border-radius: 0.5rem;
   position: relative;
   display: flex;
@@ -15,7 +15,7 @@
   text-align: center;
   font-size: 1.35rem;
   font-weight: 700;
-  background: var(--background-color);
+  background: var(--surface-color);
   color: var(--primary-color);
   padding: 0.7rem 2rem;
   border-radius: 1.2rem;
@@ -46,7 +46,7 @@
   border-radius: 0.3rem;
   background-color: var(--primary-color);
   border: 1px solid var(--primary-color);
-  color: white;
+  color: var(--surface-color);
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
@@ -54,10 +54,19 @@
 }
 
 .form-btn-wrapper button:hover {
-  background-color: var(--background-color);
+  background-color: var(--surface-color);
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
   transform: translateY(-2px) scale(1.03);
+}
+
+.form-btn-wrapper button:disabled,
+.form-btn-wrapper button:hover:disabled {
+  background: #d2d7d5;
+  border-color: #d2d7d5;
+  color: #7a8681;
+  transform: none;
+  cursor: not-allowed;
 }
 
 /* Responsive: più compatto su mobile */

@@ -1,9 +1,10 @@
 .footer {
-  background: var(--primary-color);
-  color: var(--background-color);
+  background: var(--surface-color);
+  color: var(--muted-text-color);
   padding: 2rem 0 1rem 0;
   text-align: center;
   margin-top: 3rem;
+  border-top: 1px solid var(--border-color);
 }
 
 .footer-links {
@@ -14,7 +15,7 @@
 }
 
 .footer-links a {
-  color: var(--background-color);
+  color: var(--primary-color);
   transition: color 0.3s, transform 0.3s;
   display: inline-flex;
   align-items: center;

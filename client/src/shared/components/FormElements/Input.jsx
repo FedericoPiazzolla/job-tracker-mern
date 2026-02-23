@@ -11,8 +11,11 @@ const Input = (props) => {
   const isValid = validate(value, validators);
 
   const changeHandler = (event) => {
+    const enteredValue = event.target.value;
+    const enteredValueIsValid = validate(enteredValue, validators);
+
     if (onInput) {
-      onInput(id, event.target.value, isValid);
+      onInput(id, enteredValue, enteredValueIsValid);
     }
   };
 
