@@ -177,8 +177,6 @@ job-tracker-mern/
 | Dettaglio Job   | ![Dettaglio Job](/client/src/assets/images/showJob.png)         |
 | Stats           | ![Stats](/client/src/assets/images/stats.png)                   |
 
-```
-
 ## Scelte implementative rilevanti
 
 - Hook custom `useAuth` per gestione token/sessione lato client
@@ -201,4 +199,3 @@ Questo progetto dimostra competenze pratiche su:
 - progettazione API REST e integrazione frontend
 - gestione autenticazione/autorizzazione
 - qualità UX/UI e refactoring incrementale
-```
